@@ -1,0 +1,21 @@
+# When executing integration tests through Maven, a database container is started automatically.
+# For running integration tests from your IDE, bring up an equivalent database like this:
+#
+#     docker-compose up -d
+#
+# Stop the database and clear it like this:
+#
+#     docker-compose down -v
+
+version: '3.8'
+
+services:
+  database:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: rfq
+      POSTGRES_USER: sht
+      POSTGRES_PASSWORD: sht
+    ports:
+      # The app's “test” Spring profile assumes localhost:15432 by default.
+      - "${DB_PORT:-15432}:5432"
